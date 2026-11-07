@@ -1,0 +1,1 @@
+Disposable Factory native publication fixture.
