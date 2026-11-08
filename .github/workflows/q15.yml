@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Check actual note behavior and its illustrative documentation
         shell: bash
+        env:
+          Q15_EXPECT_PASS: ${{ vars.Q15_EXPECT_PASS }}
         run: |
           set -euo pipefail
           git init -q .
@@ -39,3 +41,4 @@ jobs:
             exit 1
           fi
           grep -Eiq 'usage' no-argument.txt
+          test "${Q15_EXPECT_PASS:-}" != false
