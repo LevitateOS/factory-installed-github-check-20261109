@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Check the actual illustrative note documentation
+      - name: Check actual note behavior and its illustrative documentation
         shell: bash
         run: |
           set -euo pipefail
@@ -31,3 +31,11 @@ jobs:
             fi
           done < <(git ls-files '*.md' '*.txt')
           test "$found" = true
+          test -f note.sh
+          test "$(bash note.sh 'Walk the dog')" = 'Walk the dog'
+          test "$(bash note.sh '')" = ''
+          if bash note.sh > no-argument.txt 2>&1; then
+            echo 'Missing note must fail with usage guidance'
+            exit 1
+          fi
+          grep -Eiq 'usage' no-argument.txt
