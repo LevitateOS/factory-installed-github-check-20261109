@@ -1,0 +1,33 @@
+name: Factory Q15 connected delivery
+on:
+  push:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  note-example:
+    name: q15-note-example
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check the actual illustrative note documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init -q .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          git fetch -q --depth=1 origin "$GITHUB_SHA"
+          git checkout -q --detach FETCH_HEAD
+          git rev-parse HEAD
+          found=false
+          while IFS= read -r path; do
+            if grep -Eiq 'illustrativ' "$path" &&
+               grep -Eiq 'note' "$path" &&
+               grep -Eiq 'record|input|write' "$path" &&
+               grep -Eiq 'read|output' "$path"; then
+              found=true
+              printf 'Verified illustrative note record/readback documentation: %s\n' "$path"
+            fi
+          done < <(git ls-files '*.md' '*.txt')
+          test "$found" = true
