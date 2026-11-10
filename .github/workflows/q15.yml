@@ -42,3 +42,8 @@ jobs:
           fi
           grep -Eiq 'usage' no-argument.txt
           test "${Q15_EXPECT_PASS:-}" != false
+      - name: Check note file mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash check-note-file.sh
