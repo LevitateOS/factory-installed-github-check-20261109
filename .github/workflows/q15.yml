@@ -41,6 +41,9 @@ jobs:
             exit 1
           fi
           grep -Eiq 'usage' no-argument.txt
+          help_out=$(bash note.sh --help)
+          printf '%s\n' "$help_out" | grep -Fq -- "--file PATH"
+          printf '%s\n' "$help_out" | grep -Fq -- "<note>"
           test "${Q15_EXPECT_PASS:-}" != false
       - name: Check note file mode
         shell: bash

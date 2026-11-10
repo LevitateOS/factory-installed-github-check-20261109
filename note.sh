@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+if [ "$#" -eq 1 ] && [ "$1" = "--help" ]; then
+  echo "Usage: $0 '<note>'"
+  echo "Usage: $0 --file PATH"
+  exit 0
+fi
 if [ "$#" -eq 2 ]; then
   if [ "$1" = "--file" ]; then
     path="$2"
