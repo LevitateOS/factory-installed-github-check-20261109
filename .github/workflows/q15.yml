@@ -44,6 +44,9 @@ jobs:
           help_out=$(bash note.sh --help)
           printf '%s\n' "$help_out" | grep -Fq -- "--file PATH"
           printf '%s\n' "$help_out" | grep -Fq -- "<note>"
+          printf '%s\n' "$help_out" | grep -Fq -- "--license"
+          test "$(bash note.sh --license </dev/null)" = 'MIT'
+          test "$(bash note.sh --license </dev/null | od -An -tx1 | tr -d ' \n')" = '4d49540a'
           test "${Q15_EXPECT_PASS:-}" != false
       - name: Check note file mode
         shell: bash
