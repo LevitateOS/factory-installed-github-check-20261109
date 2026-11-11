@@ -3,6 +3,11 @@ set -euo pipefail
 if [ "$#" -eq 1 ] && [ "$1" = "--help" ]; then
   echo "Usage: $0 '<note>'"
   echo "Usage: $0 --file PATH"
+  echo "Usage: $0 --license"
+  exit 0
+fi
+if [ "$#" -eq 1 ] && [ "$1" = "--license" ]; then
+  echo "MIT"
   exit 0
 fi
 if [ "$#" -eq 2 ]; then
