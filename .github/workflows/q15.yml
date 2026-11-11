@@ -44,6 +44,8 @@ jobs:
           help_out=$(bash note.sh --help)
           printf '%s\n' "$help_out" | grep -Fq -- "--file PATH"
           printf '%s\n' "$help_out" | grep -Fq -- "<note>"
+          printf '%s\n' "$help_out" | grep -Fq -- "--version"
+          test "$(bash note.sh --version)" = "note.sh 1.0.0"
           test "${Q15_EXPECT_PASS:-}" != false
       - name: Check note file mode
         shell: bash

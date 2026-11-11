@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
+if [ "$#" -eq 1 ] && [ "$1" = "--version" ]; then
+  echo "note.sh 1.0.0"
+  exit 0
+fi
 if [ "$#" -eq 1 ] && [ "$1" = "--help" ]; then
   echo "Usage: $0 '<note>'"
   echo "Usage: $0 --file PATH"
+  echo "Usage: $0 --version"
   exit 0
 fi
 if [ "$#" -eq 2 ]; then
@@ -27,6 +32,7 @@ fi
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 '<note>'" >&2
   echo "Usage: $0 --file PATH" >&2
+  echo "Usage: $0 --version" >&2
   exit 1
 fi
 printf '%s' "$1"
