@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
-if [ "$#" -eq 2 ] && [ "$1" = "--uppercase" ]; then
+if [ "$#" -ge 1 ] && [ "$1" = "--uppercase" ]; then
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 --uppercase '<note>'" >&2
+    exit 1
+  fi
   printf '%s\n' "$2" | LC_ALL=C tr '[:lower:]' '[:upper:]'
   exit 0
 fi
