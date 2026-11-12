@@ -46,6 +46,8 @@ jobs:
           printf '%s\n' "$help_out" | grep -Fq -- "<note>"
           printf '%s\n' "$help_out" | grep -Fq -- "--version"
           cmp -s <(printf 'note.sh 1.0.0\n') <(bash note.sh --version </dev/null)
+          cmp -s <(printf 'WALK THE DOG!\n') <(bash note.sh --uppercase 'Walk the dog!' </dev/null)
+          cmp -s <(printf '\n') <(bash note.sh --uppercase '' </dev/null)
           test "${Q15_EXPECT_PASS:-}" != false
       - name: Check note file mode
         shell: bash
